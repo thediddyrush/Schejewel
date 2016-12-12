@@ -1,0 +1,59 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div ng-show='tried' class='well'>
+    <h1>Not yet implemented</h1>
+    <p>The form was successfully submitted, but it isn't tied to the backend yet</p>
+</div>
+
+<div class="container-fluid">
+    <section class="container">
+        <div class="container-page">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 well">
+                <form ng-submit='signup()' ng-hide='register'>
+                    <h3 class="dark-grey">Login</h3>
+                    <code>{{message}}</code>
+                    <div class="form-group col-lg-12">
+                        <label>Email</label>
+                        <input type="email" class="form-control" ng-model='email'>
+                    </div>
+
+                    <div class="form-group col-lg-12">
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control" ng-model='password'>
+                    </div>
+
+
+                    <div class="form-group col-lg-6">
+                        <button type="submit" class="btn btn-primary" ng-click='validate()'>Login</button>
+                        <a href='#' ng-click='toggleRegister()'>or register</a>                        
+                    </div>
+                </form>
+
+                 <form ng-submit='signup()' ng-show='register'>
+                    <h3 class="dark-grey">Register</h3>
+                    <div class="form-group col-lg-12">
+                        <label>Email</label>
+                        <input type="email" class="form-control" ng-model='email'>
+                    </div>
+
+                    <div class="form-group col-lg-12">
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control" ng-model='password'>
+                    </div>
+
+
+                    <div class="form-group col-lg-6">
+                        <button type="submit" class="btn btn-primary" ng-click='doRegister()'>Register</button>
+                        <a href='#' ng-click='toggleRegister()'>or login</a>                        
+                    </div>
+                </form>
+
+
+            </div>
+            <div class="col-md-3"></div>
+
+
+        </div>
+    </section>
+</div>

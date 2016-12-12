@@ -1,0 +1,56 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div ng-show='tried' class='well'>
+    <h1>Not yet implemented</h1>
+    <p>The form was successfully submitted, but it isn't tied to the backend yet</p>
+</div>
+
+
+<div class="container-fluid">
+    <section class="container">
+        <div class="container-page">
+            <div class="col-md-6 well">
+                <h3 class="dark-grey form-title">Registration</h3>
+                <form ng-submit='signup()'>
+                    <div class="form-group col-lg-12">
+                        <label>Email</label>
+                        <input type="email" class="form-control" ng-model='email'>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control" ng-model='password'>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Repeat Password</label>
+                        <input type="password" class="form-control" ng-model='passwordRepeat'>
+                    </div>
+
+
+                    <div class="form-group col-lg-6">
+                        <button type="submit" class="btn btn-primary" ng-click='signup()'>Register</button>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="col-md-6">
+                <h3 class="dark-grey accompany-text">Terms and Conditions</h3>
+                <p>
+                    By clicking on "Register" you agree to The Company's' Terms and Conditions
+                </p>
+                <p>
+                    While rare, prices are subject to change based on exchange rate fluctuations - should such a fluctuation happen, we may request an additional payment. You have the option to request a full refund or to pay the new price. (Paragraph 13.5.8)
+                </p>
+                <p>
+                    Should there be an error in the description or pricing of a product, we will provide you with a full refund (Paragraph 13.5.6)
+                </p>
+                <p>
+                    Acceptance of an order by us is dependent on our suppliers ability to provide the product. (Paragraph 13.5.6)
+                </p>
+
+            </div>
+        </div>
+    </section>
+</div>

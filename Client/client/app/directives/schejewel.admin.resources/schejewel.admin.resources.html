@@ -1,0 +1,15 @@
+<div class='adminResources'>
+    <h1>Resources</h1>
+    <div ng-repeat='resource in resources' class='resource'>
+        <div class='name'>
+            <input type='text' ng-model='resource.name' ng-show='resource.editable'>
+            <span ng-hide='resource.editable'>{{resource.name}}</span>
+        </div>
+        <button class='btn btn-sm btn-danger delete' ng-click='deleteResource($index)'>delete</button>
+        <button class='btn btn-sm delete' ng-class='{"btn-default": !resource.editable, "btn-primary": resource.editable}' ng-click='toggleEdit($index)'>
+            edit
+        </button>
+        <div style='clear: both'></div>
+    </div>
+    <button class='btn btn-success' ng-click='addResource()'>Add resource</button>
+</div>

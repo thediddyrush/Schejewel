@@ -1,0 +1,176 @@
+CREATE TABLE company(
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE user(
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  username VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  company_id INT(11),
+  PRIMARY KEY (id),
+  FOREIGN KEY (company_id) REFERENCES company(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE
+);
+
+CREATE TABLE tour_type(
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  owner_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (owner_id) REFERENCES company(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE
+);
+
+CREATE TABLE status(
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    description VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE tour(
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  owner_id INT(11) NOT NULL,
+  start_date DATE NOT NULL,
+  start_time TIME NOT NULL,
+  tour_type_id INT(11) NOT NULL,
+  status INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (tour_type_id) REFERENCES tour_type(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE,
+  FOREIGN KEY (owner_id) REFERENCES company(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE,
+  FOREIGN KEY (status) REFERENCES status(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE
+);
+
+CREATE TABLE resource(
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL, 
+  capacity INT(11),
+  owner_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (owner_id) REFERENCES company(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE
+);
+
+CREATE TABLE resource_type(
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE resource_resource_type(
+  resource_id INT(11) NOT NULL,
+  resource_type_id INT(11) NOT NULL,
+  FOREIGN KEY (resource_id) REFERENCES resource(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE,
+  FOREIGN KEY (resource_type_id) REFERENCES resource_type(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE
+);
+
+CREATE TABLE tour_type_resource(
+  tour_type_id INT(11) NOT NULL,
+  resource_type_id INT(11) NOT NULL,
+  order_number INT(11) NOT NULL,
+  duration INT(11) NOT NULL,
+  FOREIGN KEY (tour_type_id) REFERENCES tour_type(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE,
+  FOREIGN KEY (resource_type_id) REFERENCES resource_type(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE
+);
+
+CREATE TABLE resource_schedule(
+  resource_id INT(11) NOT NULL,
+  tour_id INT(11) NOT NULL,
+  start_date DATE NOT NULL,
+  start_time TIME NOT NULL,
+  duration INT(11) NOT NULL,
+  status INT(11) NOT NULL,
+  FOREIGN KEY (resource_id) REFERENCES resource(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE,
+  FOREIGN KEY (tour_id) REFERENCES tour(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE,
+  FOREIGN KEY (status) REFERENCES status(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE
+);
+
+CREATE TABLE cruise_line(
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE cruise_ship(
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  cruise_line_id INT(11) NOT NULL,
+  PRIMARY KEY(id),
+  FOREIGN KEY (cruise_line_id) REFERENCES cruise_line(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE
+);
+
+CREATE TABLE portage(
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  cruise_ship_id INT(11) NOT NULL,
+  arrival_date DATE NOT NULL,
+  arrival_time TIME NOT NULL,
+  departure_date DATE NOT NULL,
+  departure_time TIME NOT NULL,
+  passengers INT(11),
+  AA TIME,
+  dock INT(11),
+  voyage VARCHAR(255),
+  location VARCHAR(255),
+  PRIMARY KEY (id),
+  FOREIGN KEY (cruise_ship_id) REFERENCES cruise_ship(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE
+);
+
+CREATE TABLE tour_group(
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  portage_id INT(11) NOT NULL,
+  tour_id INT(11) NOT NULL,
+  group_size INT(11) NOT NULL,
+  settled TINYINT(1),
+  PRIMARY KEY(id),
+  FOREIGN KEY (portage_id) REFERENCES portage(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE,
+  FOREIGN KEY (tour_id) REFERENCES tour(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE
+);
+
+CREATE TABLE privilege(
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  description VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE user_privileges(
+  user_id INT(11) NOT NULL,
+  privilege_id INT(11) NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES user(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE,
+  FOREIGN KEY (privilege_id) REFERENCES privilege(id)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE
+);
